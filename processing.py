@@ -1,28 +1,26 @@
 import processing_py
-# from  import position
 from processing_py import *
 from math import atan2
-from time import sleep
 
 
 arr = []
-arrwd = 10
-arrwlen = 5
-width = 1000
-height = 1000
+arrwd = 10        #arrow density
+arrwlen = 5       #arrow length
+width = 1000      #width of the canvas
+height = 1000     #heigth of the canvas
 
-app = App(width, height)  # create window: width, height
-# app.frameRate()
+app = App(width, height)     # create window: width, height
 
 
-class Arrow:
 
-    def __init__(self, x, y, length):
+class Arrow:           #create instanceses of every arrow
+
+    def __init__(self, x, y, length):    #get arrow coordinates
         self.x = x
         self.y = y
         self.length = length
 
-    def update(self):
+    def update(self):                   #get change of arrows orientation
         angle = atan2(app.mouseY-self.y, app.mouseX-self.x)
         app.pushMatrix()
         app.translate(self.x, self.y)
@@ -36,7 +34,6 @@ class Arrow:
         app.vertex(5*self.length, self.length)
         app.vertex(0, self.length)
         app.endShape(0)
-        # app.close()
         app.popMatrix()
 
 
@@ -45,24 +42,12 @@ def draw():
         for j in range(0, arrwd):
             arr.append(Arrow(i*width/arrwd, j*height/arrwd, arrwlen))
 
-    # print(arr)
     for k in range(0, len(arr)):
         app.fill(255, 0, 0)
         arr[k].update()
-
-    #  while(k < len(arr)):
-    #     k += 1
-    #     app.fill(255, 0, 0)
-    #     arr[k].update()
-
 
 while True:
     app.background(0)
     draw()
     app.redraw()
 
-
-# def mousePressed():
-#     global mX,mY
-#     mX = mouseX
-#     mY = mouseY
